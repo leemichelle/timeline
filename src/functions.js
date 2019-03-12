@@ -34,10 +34,44 @@ const giveEventColor = (id) => {
 
 const distanceWidth = 25; //px width per event day
 
+const calculateHeaderPosition = (week) => {
+  let start = 175;
+  return week * start;
+};
+
+const weeks = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+const calculateDate = (weeks) => {
+  let months = {
+    1: 'January',
+    2: 'February',
+  }
+  let date = 1;
+  let i = 0;
+  let month = 1;
+  let result = [];
+  while (i < weeks.length) {
+    result.push(`${months[month]} ${date}`)
+    date += 7;
+    if (months[month] === 'January' && date >= 31) {
+      let remainder = Math.abs(date - 31);
+      date = remainder;
+      month++;
+    }
+    i++;
+  }
+  return result;
+};
+
+const headerDates = calculateDate(weeks);
+
 module.exports = {
   calculateEventWidth,
   calculateTopPosition,
   calculateLeftPosition,
   giveEventColor,
   distanceWidth,
+  calculateHeaderPosition,
+  weeks,
+  headerDates,
 };
