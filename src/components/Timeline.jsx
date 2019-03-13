@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../index.css';
 import Events from './Events.jsx';
 import Header from './Header.jsx';
+import functions from '../functions.js';
 
 class Timeline extends Component {
   constructor(props) {
@@ -21,20 +22,44 @@ class Timeline extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-  zoomIn() {
-    console.log('in')
+  zoomIn() { 
+    let newState = Object.assign({}, this.state.windowStyle);
+    let newScale = functions.scaleIn(this.state.windowStyle.transform);
+    newState.transform = newScale;
+    this.setState({
+      windowStyle: newState
+    });
   }
 
   zoomOut() {
-    console.log('out')
+    let newState = Object.assign({}, this.state.windowStyle);
+    let newScale = functions.scaleOut(this.state.windowStyle.transform);
+    newState.transform = newScale;
+    this.setState({
+      windowStyle: newState
+    });
   }
 
   scrollLeft() {
-    console.log('left')
+    let newState = Object.assign({}, this.state.windowStyle);
+    let newWidth = functions.moveLeft(this.state.windowStyle.width);
+    let newRight = functions.moveLeft(this.state.windowStyle.right);
+    newState.width = newWidth;
+    newState.right = newRight;
+    this.setState({
+      windowStyle: newState
+    })
   }
 
   scrollRight() {
-    console.log('right')
+    let newState = Object.assign({}, this.state.windowStyle);
+    let newWidth = functions.moveRight(this.state.windowStyle.width);
+    let newRight = functions.moveRight(this.state.windowStyle.right);
+    newState.width = newWidth;
+    newState.right = newRight;
+    this.setState({
+      windowStyle: newState
+    })
   }
 
   handleKeyPress(e) {
