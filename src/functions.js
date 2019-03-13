@@ -65,6 +65,12 @@ const calculateDate = (weeks) => {
 
 const headerDates = calculateDate(weeks);
 
+const calculateNewLeft = (offSetX, newX) => {
+  let start = Math.abs(offSetX);
+  let width = newX - start;
+  console.log(width);
+}
+
 module.exports = {
   calculateEventWidth,
   calculateTopPosition,
@@ -74,4 +80,5 @@ module.exports = {
   calculateHeaderPosition,
   weeks,
   headerDates,
+  calculateNewLeft,
 };
