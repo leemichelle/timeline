@@ -38,6 +38,14 @@ const giveEventColor = (id) => {
 
 const distanceWidth = 25; //px width per event day
 
+const filterNames = (array) => {
+  let names = [];
+  array.filter(event => {
+    return names.push(event.name);
+  });
+  return names;
+}
+
 /******************************************************************** 
  * Functions for Header Component                                   *
 *********************************************************************/
@@ -149,4 +157,5 @@ module.exports = {
   maxWidthRight,
   maxWidthLeft,
   rightPositionForMaxWidthLeft,
+  filterNames,
 };

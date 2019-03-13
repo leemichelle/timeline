@@ -31,3 +31,7 @@ body {
   overflow: auto;
   white-space: nowrap;
 }
+
+[contenteditable]:focus {
+  outline: 0px solid transparent;
+}

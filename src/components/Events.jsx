@@ -8,7 +8,9 @@ class Events extends Component {
     super(props);
     this.state = {
       positionX: 0,
+      name: functions.filterNames(timelineItems),
     }
+    this.setEventName = this.setEventName.bind(this);
   }
 
   calculateTopPosition(obj) {
@@ -27,6 +29,25 @@ class Events extends Component {
     return functions.giveEventColor(obj.id);
   };
 
+  handleEnterKey(e) {
+    if (e.key === "Enter") {
+      this.setEventName(e);
+    }
+  }
+
+  setEventName(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      let id = e.target.id - 1;
+      let newName = JSON.parse(JSON.stringify(this.state.name));
+      let newEvent = e.target.textContent;
+      newName[id] = newEvent;
+      this.setState({
+        name: newName
+      });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -35,15 +56,6 @@ class Events extends Component {
             key={event.id} 
             className='eventBox'
             draggable
-            onDrag = {(e) => {
-              let offX = e.nativeEvent.offsetX;
-              let newX = e.pageX;
-              console.log(functions.calculateNewLeft(offX, newX));
-            }}
-            onDragStart = {(e) => {e.dataTransfer.setData("text", e.nativeEvent.offsetX)}}
-            onDragOver = {(e) => {e.preventDefault()}}
-            onDrop = {(e) => {e.preventDefault()
-              this.props.swap(e.dataTransfer.getData("text"), e.nativeEvent.offsetX)}} 
             style= {{
               top: this.calculateTopPosition(event),
               width: this.calculateWidth(event),
@@ -51,8 +63,11 @@ class Events extends Component {
               background: this.changeBackground(event),
               }}>
             <span 
-              id={event.id}>
-              {event.name}
+              id={event.id}
+              onKeyPress={this.setEventName}
+              contentEditable="true"
+              >
+              {this.state.name[event.id - 1]}
             </span>
           </div>
         ))}
