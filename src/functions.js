@@ -1,3 +1,7 @@
+/******************************************************************** 
+ * Functions for Events Component                                   *
+*********************************************************************/
+
 const convertDateToNumber = (string) => {
   return Number(string.split('-').join(''));
 };
@@ -34,6 +38,10 @@ const giveEventColor = (id) => {
 
 const distanceWidth = 25; //px width per event day
 
+/******************************************************************** 
+ * Functions for Header Component                                   *
+*********************************************************************/
+
 const calculateHeaderPosition = (week) => {
   let start = 175;
   return week * start;
@@ -65,12 +73,9 @@ const calculateDate = (weeks) => {
 
 const headerDates = calculateDate(weeks);
 
-// for drag functionality, revisit later
-const calculateNewLeft = (offSetX, newX) => {
-  let start = Math.abs(offSetX);
-  let width = newX - start;
-  console.log(width);
-}
+/******************************************************************** 
+ * Functions for Timeline Component                                   *
+*********************************************************************/
 
 const scaleIn = (string) => {
   let numString = '';
@@ -95,6 +100,9 @@ const scaleOut = (string) => {
     }
   }
   let scale = (Number(numString) - .1).toFixed(1);
+  if (scale < 1) {
+    scale = 1;
+  }
   return `scale(${scale})`;
 }
 
@@ -107,9 +115,22 @@ const moveLeft = (string) => {
 const moveRight = (string) => {
   let num = string.split('px')[0];
   let position = Number(num) - distanceWidth
+  if (position < 0) {
+    position = 0;
+  }
   return `${position}px`;
 }
 
+const maxWidthRight = '1225px';
+const maxWidthLeft = '1575px';
+const rightPositionForMaxWidthLeft = '350px'
+
+// for drag functionality, revisit later
+const calculateNewLeft = (offSetX, newX) => {
+  let start = Math.abs(offSetX);
+  let width = newX - start;
+  console.log(width);
+}
 
 module.exports = {
   calculateEventWidth,
@@ -120,9 +141,12 @@ module.exports = {
   calculateHeaderPosition,
   weeks,
   headerDates,
-  calculateNewLeft,
+  calculateNewLeft, // drag function
   scaleIn,
   scaleOut,
   moveLeft,
   moveRight,
+  maxWidthRight,
+  maxWidthLeft,
+  rightPositionForMaxWidthLeft,
 };

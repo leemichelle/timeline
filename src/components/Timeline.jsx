@@ -44,6 +44,10 @@ class Timeline extends Component {
     let newState = Object.assign({}, this.state.windowStyle);
     let newWidth = functions.moveLeft(this.state.windowStyle.width);
     let newRight = functions.moveLeft(this.state.windowStyle.right);
+    if (newWidth >= functions.maxWidthLeft) {
+      newWidth = functions.maxWidthLeft;
+      newRight = functions.rightPositionForMaxWidthLeft;
+    }
     newState.width = newWidth;
     newState.right = newRight;
     this.setState({
@@ -55,6 +59,9 @@ class Timeline extends Component {
     let newState = Object.assign({}, this.state.windowStyle);
     let newWidth = functions.moveRight(this.state.windowStyle.width);
     let newRight = functions.moveRight(this.state.windowStyle.right);
+    if (newRight === '0px') {
+      newWidth = functions.maxWidthRight;
+    }
     newState.width = newWidth;
     newState.right = newRight;
     this.setState({

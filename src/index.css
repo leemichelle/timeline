@@ -10,6 +10,12 @@ body {
   background: #f9fdff;
 }
 
+.view {
+  height: 400px;
+  width: 1225px;
+  overflow: hidden;
+}
+
 .header {
   width: 175px;
   height: 20px;
