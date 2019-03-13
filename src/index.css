@@ -21,4 +21,7 @@ body {
 .eventBox {
   height: 20px;
   position: absolute;
+  text-overflow: ellipsis;
+  overflow: auto;
+  white-space: nowrap;
 }
