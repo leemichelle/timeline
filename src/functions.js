@@ -65,11 +65,51 @@ const calculateDate = (weeks) => {
 
 const headerDates = calculateDate(weeks);
 
+// for drag functionality, revisit later
 const calculateNewLeft = (offSetX, newX) => {
   let start = Math.abs(offSetX);
   let width = newX - start;
   console.log(width);
 }
+
+const scaleIn = (string) => {
+  let numString = '';
+  for (let i = 0; i < string.length; i++) {
+    let number = Number(string[i]);
+    let regex = /^[0-9]+$/;
+    if (regex.test(number) || string[i] === '.') {
+      numString+=string[i];
+    }
+  }
+  let scale = (Number(numString) + .1).toFixed(1)
+  return `scale(${scale})`;
+}
+
+const scaleOut = (string) => {
+  let numString = '';
+  for (let i = 0; i < string.length; i++) {
+    let number = Number(string[i]);
+    let regex = /^[0-9]+$/;
+    if (regex.test(number) || string[i] === '.') {
+      numString+=string[i];
+    }
+  }
+  let scale = (Number(numString) - .1).toFixed(1);
+  return `scale(${scale})`;
+}
+
+const moveLeft = (string) => {
+  let num = string.split('px')[0];
+  let position = Number(num) + distanceWidth
+  return `${position}px`;
+}
+
+const moveRight = (string) => {
+  let num = string.split('px')[0];
+  let position = Number(num) - distanceWidth
+  return `${position}px`;
+}
+
 
 module.exports = {
   calculateEventWidth,
@@ -81,4 +121,8 @@ module.exports = {
   weeks,
   headerDates,
   calculateNewLeft,
+  scaleIn,
+  scaleOut,
+  moveLeft,
+  moveRight,
 };
