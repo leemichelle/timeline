@@ -7,7 +7,6 @@ class Events extends Component {
   constructor() {
     super();
     this.state = {
-      positionX: 0,
       name: functions.filterNames(timelineItems),
     }
     this.setEventName = this.setEventName.bind(this);
@@ -56,12 +55,13 @@ class Events extends Component {
               width: this.calculateWidth(event),
               left: this.calculateStart(event),
               background: this.changeBackground(event),
+              resize: 'horizontal',
+              overflow: 'auto',
               }}>
             <span 
               id={event.id}
               onKeyPress={this.setEventName}
-              contentEditable="true"
-              >
+              contentEditable="true">
               {this.state.name[event.id - 1]}
             </span>
           </div>

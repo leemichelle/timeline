@@ -1,5 +1,5 @@
 /******************************************************************** 
- * Variables for width of Events and Header                                *
+ * Variables for width of Events, Header, and Timeline                                *
 *********************************************************************/
 const eventHeight = 20;
 const distanceWidth = 25; //px width per event day

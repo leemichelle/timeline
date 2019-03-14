@@ -4,6 +4,10 @@ body {
   font-family: sans-serif;
 }
 
+span {
+  color: white;
+}
+
 .timeline {
   display: flex;
   position: relative;
@@ -25,8 +29,9 @@ body {
 
 .eventBox {
   position: absolute;
+  color: white;
   text-overflow: ellipsis;
-  overflow: auto;
+  overflow: hidden;
   white-space: nowrap;
 }
 
