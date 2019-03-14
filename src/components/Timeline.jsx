@@ -5,8 +5,8 @@ import Header from './Header.jsx';
 import functions from '../functions.js';
 
 class Timeline extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       windowStyle: {
         height: '400px',
@@ -52,7 +52,7 @@ class Timeline extends Component {
     newState.right = newRight;
     this.setState({
       windowStyle: newState
-    })
+    });
   }
 
   scrollRight() {
@@ -66,7 +66,7 @@ class Timeline extends Component {
     newState.right = newRight;
     this.setState({
       windowStyle: newState
-    })
+    });
   }
 
   handleKeyPress(e) {

@@ -4,8 +4,8 @@ import functions from '../functions.js';
 import timelineItems from '../timelineItems.js';
 
 class Events extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       positionX: 0,
       name: functions.filterNames(timelineItems),
@@ -15,24 +15,18 @@ class Events extends Component {
 
   calculateTopPosition(obj) {
     return functions.calculateTopPosition(obj);
-  };
+  }
 
   calculateWidth(obj) {
     return functions.distanceWidth * functions.calculateEventWidth(obj);
-  };
+  }
 
   calculateStart(obj) {
     return functions.distanceWidth * functions.calculateLeftPosition(obj);
-  };
+  }
 
   changeBackground(obj) {
     return functions.giveEventColor(obj.id);
-  };
-
-  handleEnterKey(e) {
-    if (e.key === "Enter") {
-      this.setEventName(e);
-    }
   }
 
   setEventName(e) {
@@ -58,6 +52,7 @@ class Events extends Component {
             draggable
             style= {{
               top: this.calculateTopPosition(event),
+              height: functions.eventHeight,
               width: this.calculateWidth(event),
               left: this.calculateStart(event),
               background: this.changeBackground(event),

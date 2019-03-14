@@ -1,7 +1,12 @@
 /******************************************************************** 
+ * Variables for width of Events and Header                                *
+*********************************************************************/
+const eventHeight = 20;
+const distanceWidth = 25; //px width per event day
+
+/******************************************************************** 
  * Functions for Events Component                                   *
 *********************************************************************/
-
 const convertDateToNumber = (string) => {
   return Number(string.split('-').join(''));
 };
@@ -17,7 +22,6 @@ const calculateEventWidth = (obj) => {
 };
 
 const calculateTopPosition = (obj) => {
-  let eventHeight = 20;
   return (0 + (obj.id * eventHeight));
 };
 
@@ -36,8 +40,6 @@ const giveEventColor = (id) => {
   return colorArr[id - 1];
 };
 
-const distanceWidth = 25; //px width per event day
-
 const filterNames = (array) => {
   let names = [];
   array.filter(event => {
@@ -49,9 +51,8 @@ const filterNames = (array) => {
 /******************************************************************** 
  * Functions for Header Component                                   *
 *********************************************************************/
-
 const calculateHeaderPosition = (week) => {
-  let start = 175;
+  let start = distanceWidth * 7;
   return week * start;
 };
 
@@ -84,8 +85,7 @@ const headerDates = calculateDate(weeks);
 /******************************************************************** 
  * Functions for Timeline Component                                   *
 *********************************************************************/
-
-const scaleIn = (string) => {
+const stringToNum = (string) => {
   let numString = '';
   for (let i = 0; i < string.length; i++) {
     let number = Number(string[i]);
@@ -94,20 +94,18 @@ const scaleIn = (string) => {
       numString+=string[i];
     }
   }
-  let scale = (Number(numString) + .1).toFixed(1)
+  return Number(numString);
+}
+
+const scaleIn = (string) => {
+  let num = stringToNum(string);
+  let scale = (num + .1).toFixed(1)
   return `scale(${scale})`;
 }
 
 const scaleOut = (string) => {
-  let numString = '';
-  for (let i = 0; i < string.length; i++) {
-    let number = Number(string[i]);
-    let regex = /^[0-9]+$/;
-    if (regex.test(number) || string[i] === '.') {
-      numString+=string[i];
-    }
-  }
-  let scale = (Number(numString) - .1).toFixed(1);
+  let num = stringToNum(string);
+  let scale = (num - .1).toFixed(1);
   if (scale < 1) {
     scale = 1;
   }
@@ -115,30 +113,26 @@ const scaleOut = (string) => {
 }
 
 const moveLeft = (string) => {
-  let num = string.split('px')[0];
-  let position = Number(num) + distanceWidth
+  let px = stringToNum(string);
+  let position = px + distanceWidth;
   return `${position}px`;
 }
 
 const moveRight = (string) => {
-  let num = string.split('px')[0];
-  let position = Number(num) - distanceWidth
+  let px = stringToNum(string);
+  let position = px - distanceWidth
   if (position < 0) {
     position = 0;
   }
   return `${position}px`;
 }
 
+/******************************************************************** 
+ * Variables for width of View                                 *
+*********************************************************************/
 const maxWidthRight = '1225px';
 const maxWidthLeft = '1575px';
-const rightPositionForMaxWidthLeft = '350px'
-
-// for drag functionality, revisit later
-const calculateNewLeft = (offSetX, newX) => {
-  let start = Math.abs(offSetX);
-  let width = newX - start;
-  console.log(width);
-}
+const rightPositionForMaxWidthLeft = `${stringToNum(maxWidthLeft) - stringToNum(maxWidthRight)}px`;
 
 module.exports = {
   calculateEventWidth,
@@ -149,7 +143,6 @@ module.exports = {
   calculateHeaderPosition,
   weeks,
   headerDates,
-  calculateNewLeft, // drag function
   scaleIn,
   scaleOut,
   moveLeft,
@@ -158,4 +151,5 @@ module.exports = {
   maxWidthLeft,
   rightPositionForMaxWidthLeft,
   filterNames,
+  eventHeight,
 };

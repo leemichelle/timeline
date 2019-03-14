@@ -5,6 +5,6 @@ const View = () => (
   <div className='view'>
     <Timeline />
   </div>
-)
+);
 
 export default View;

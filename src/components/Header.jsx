@@ -2,14 +2,15 @@ import React from 'react';
 import '../index.css';
 import functions from '../functions.js';
 
-const Header = props => (
+const Header = () => (
   <div>
     {functions.weeks.map(week => (
       <span 
         key={week}
         className='header' 
         style={{
-          left: functions.calculateHeaderPosition(week)
+          left: functions.calculateHeaderPosition(week),
+          width: (functions.distanceWidth * 7),
         }}>
         {functions.headerDates[week]}
       </span>
